@@ -1,0 +1,107 @@
+{
+  "users": [
+    {
+      "username": "boss",
+      "password": "1234",
+      "role": "boss"
+    },
+    {
+      "username": "employee1",
+      "password": "5678",
+      "role": "employee",
+      "id": "01",
+      "name": "員工1",
+      "position": "技工"
+    },
+    {
+      "username": "9",
+      "password": "9",
+      "role": "employee",
+      "id": "9",
+      "name": "9",
+      "position": "技工"
+    },
+    {
+      "username": "8",
+      "password": "8",
+      "role": "employee",
+      "id": "8",
+      "name": "8",
+      "position": "技工"
+    },
+    {
+      "username": "1",
+      "password": "1",
+      "role": "employee",
+      "id": "1",
+      "name": "1",
+      "position": "技工"
+    }
+  ],
+  "projects": [
+    {
+      "id": 8,
+      "name": "5",
+      "amount": 25424242,
+      "percent": 1,
+      "employees": [
+        "01",
+        "8",
+        "9",
+        "1"
+      ],
+      "profits": {
+        "1": 63560,
+        "8": 63560,
+        "9": 63560,
+        "01": 63560
+      },
+      "isManuallyEdited": {},
+      "startDate": "2005/11/28",
+      "endDate": "2006/11/28"
+    },
+    {
+      "id": 9,
+      "name": "5",
+      "amount": 2454205,
+      "percent": 2,
+      "employees": [
+        "01",
+        "8",
+        "9",
+        "1"
+      ],
+      "profits": {
+        "1": 12271,
+        "8": 12271,
+        "9": 12271,
+        "01": 12271
+      },
+      "isManuallyEdited": {},
+      "startDate": "2005/11/28",
+      "endDate": "2007/11/28"
+    },
+    {
+      "id": 10,
+      "name": "8",
+      "amount": 1265146,
+      "percent": 2,
+      "employees": [
+        "01",
+        "8",
+        "9",
+        "1"
+      ],
+      "profits": {
+        "1": 6325,
+        "8": 6325,
+        "9": 6325,
+        "01": 6325
+      },
+      "isManuallyEdited": {},
+      "startDate": "2005/11/28",
+      "endDate": "2005/11/28"
+    }
+  ],
+  "deletedEmployees": []
+}
