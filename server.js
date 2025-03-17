@@ -12,17 +12,26 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.get('/api/data', async (req, res) => {
-    const data = await kv.get('data') || { users: [], projects: [], deletedEmployees: [] };
-    res.json(data);
+    try {
+        const data = await kv.get('profit-data') || { users: [], projects: [], deletedEmployees: [] };
+        res.json(data);
+    } catch (error) {
+        console.error('KV GET 錯誤:', error);
+        res.status(500).json({ error: '無法獲取數據' });
+    }
 });
 
 app.post('/api/data', async (req, res) => {
-    const data = req.body;
-    await kv.set('data', data);
-    res.json(data);
+    try {
+        const data = req.body;
+        await kv.set('profit-data', data);
+        res.json(data);
+    } catch (error) {
+        console.error('KV SET 錯誤:', error);
+        res.status(500).json({ error: '無法保存數據' });
+    }
 });
 
-// 添加根路徑重定向
 app.get('/', (req, res) => {
     res.redirect('/index.html');
 });
