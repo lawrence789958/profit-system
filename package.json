@@ -6,6 +6,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@vercel/kv": "^0.2.4",
     "express": "^4.21.2"
   },
   "repository": {
