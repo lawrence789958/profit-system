@@ -41,12 +41,13 @@ app.get('/api/data', (req, res) => {
 app.post('/api/data', (req, res) => {
     console.log('收到 POST 請求，數據:', req.body);
     data = req.body;
-    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-    console.log('數據已儲存到文件');
+    // fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2)); // 暫時註釋掉，Vercel 只讀文件系統
+    console.log('數據已儲存到文件（模擬）');
     res.json(data);
 });
 
 // 啟動伺服器
-app.listen(3000, () => {
-    console.log('伺服器運行中，端口 3000');
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`伺服器運行中，端口 ${port}`);
 });
