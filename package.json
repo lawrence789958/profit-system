@@ -7,5 +7,17 @@
   },
   "dependencies": {
     "express": "^4.21.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lawrence789958/profit-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lawrence789958/profit-system/issues"
+  },
+  "homepage": "https://github.com/lawrence789958/profit-system#readme",
+  "description": ""
 }
