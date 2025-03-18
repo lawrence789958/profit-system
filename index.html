@@ -595,7 +595,7 @@
     // 從後端獲取數據
     async function fetchData() {
     try {
-        const response = await fetch('http://localhost:3000/api/data');
+        const response = await fetch('/api/data');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -604,10 +604,9 @@
         projects = data.projects || [];
         deletedEmployees = data.deletedEmployees || [];
         console.log('數據載入成功:', { users, projects, deletedEmployees });
-        // 通知其他函數更新 UI
         populateYearSelects();
         setDefaultYearAndMonth();
-        loadProjectList(); // 總是調用，確保專案列表顯示
+        loadProjectList();
         if (currentUser) {
             if (currentUser.role === "boss") {
                 loadEmployeesForProject();
