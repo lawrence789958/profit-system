@@ -19,6 +19,19 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+// 登入路由
+app.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
+    const data = await redis.get('profit-data');
+    const users = JSON.parse(data || '{"users":[]}').users;
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+        res.json({ success: true, role: user.role });
+    } else {
+        res.status(401).json({ success: false, message: '無效的用戶名或密碼' });
+    }
+});
+
 app.get('/api/data', async (req, res) => {
     try {
         const data = await redis.get('profit-data');
