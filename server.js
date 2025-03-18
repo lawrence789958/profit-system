@@ -13,11 +13,18 @@ app.use(express.json());
 
 app.get('/api/data', async (req, res) => {
     try {
-        const data = await kv.get('profit-data') || { users: [], projects: [], deletedEmployees: [] };
-        res.json(data);
+        const data = await kv.get('profit-data');
+        if (data === null) {
+            // 初始化空數據
+            const initialData = { users: [], projects: [], deletedEmployees: [] };
+            await kv.set('profit-data', initialData);
+            res.json(initialData);
+        } else {
+            res.json(data);
+        }
     } catch (error) {
         console.error('KV GET 錯誤:', error);
-        res.status(500).json({ error: '無法獲取數據' });
+        res.status(500).json({ error: '後端服務器錯誤，無法獲取數據' });
     }
 });
 
@@ -28,7 +35,7 @@ app.post('/api/data', async (req, res) => {
         res.json(data);
     } catch (error) {
         console.error('KV SET 錯誤:', error);
-        res.status(500).json({ error: '無法保存數據' });
+        res.status(500).json({ error: '後端服務器錯誤，無法保存數據' });
     }
 });
 
@@ -36,7 +43,5 @@ app.get('/', (req, res) => {
     res.redirect('/index.html');
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`伺服器運行中，端口 ${port}`);
-});
+// Vercel 環境不需要手動 listen
+module.exports = app; // 導出 app 供 Vercel 使用
