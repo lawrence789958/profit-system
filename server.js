@@ -1,6 +1,12 @@
 const express = require('express');
-const { kv } = require('@vercel/kv');
+const { Redis } = require('@upstash/redis');
 const app = express();
+
+// 初始化 Upstash Redis
+const redis = new Redis({
+    url: process.env.REDIS_URL,
+    token: process.env.REDIS_TOKEN,
+});
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -13,17 +19,16 @@ app.use(express.json());
 
 app.get('/api/data', async (req, res) => {
     try {
-        const data = await kv.get('profit-data');
+        const data = await redis.get('profit-data');
         if (data === null) {
-            // 初始化空數據
             const initialData = { users: [], projects: [], deletedEmployees: [] };
-            await kv.set('profit-data', initialData);
+            await redis.set('profit-data', JSON.stringify(initialData));
             res.json(initialData);
         } else {
-            res.json(data);
+            res.json(JSON.parse(data));
         }
     } catch (error) {
-        console.error('KV GET 錯誤:', error);
+        console.error('Redis GET 錯誤:', error);
         res.status(500).json({ error: '後端服務器錯誤，無法獲取數據' });
     }
 });
@@ -31,10 +36,10 @@ app.get('/api/data', async (req, res) => {
 app.post('/api/data', async (req, res) => {
     try {
         const data = req.body;
-        await kv.set('profit-data', data);
+        await redis.set('profit-data', JSON.stringify(data));
         res.json(data);
     } catch (error) {
-        console.error('KV SET 錯誤:', error);
+        console.error('Redis SET 錯誤:', error);
         res.status(500).json({ error: '後端服務器錯誤，無法保存數據' });
     }
 });
@@ -43,5 +48,4 @@ app.get('/', (req, res) => {
     res.redirect('/index.html');
 });
 
-// Vercel 環境不需要手動 listen
-module.exports = app; // 導出 app 供 Vercel 使用
+module.exports = app;
