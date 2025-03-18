@@ -2,7 +2,9 @@ const express = require('express');
 const { Redis } = require('@upstash/redis');
 const app = express();
 
-// 初始化 Upstash Redis
+console.log('REDIS_URL:', process.env.REDIS_URL);
+console.log('REDIS_TOKEN:', process.env.REDIS_TOKEN);
+
 const redis = new Redis({
     url: process.env.REDIS_URL,
     token: process.env.REDIS_TOKEN,
